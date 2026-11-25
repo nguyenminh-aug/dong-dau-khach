@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>Đóng dấu ảnh</title>
+  <style>
+    :root{--bg:#f1f5f9;--card:#fff;--ink:#0f172a;--muted:#64748b;--primary:#2563eb;--line:#e2e8f0}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    .app{max-width:720px;margin:auto;padding:16px 14px 40px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.brand{font-size:23px;font-weight:800;letter-spacing:-.5px}.badge{font-size:12px;color:#166534;background:#dcfce7;border-radius:999px;padding:6px 9px;font-weight:700}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:13px;box-shadow:0 4px 18px #0f172a08}.section-title{font-weight:750;margin:0 0 12px;font-size:16px}.hint{font-size:12px;color:var(--muted);margin-top:8px}
+    .upload{border:2px dashed #93c5fd;background:#eff6ff;border-radius:15px;min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;text-align:center;color:#1d4ed8;cursor:pointer}.upload input{display:none}.upload strong{font-size:15px}.upload span{font-size:12px;color:#64748b}
+    label{display:block;font-size:13px;font-weight:700;margin:12px 0 6px}.text{width:100%;height:45px;border:1px solid var(--line);border-radius:11px;padding:0 12px;font-size:16px;outline:none}.text:focus{border-color:var(--primary);box-shadow:0 0 0 3px #2563eb20}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 11px;font-size:13px;cursor:pointer}.chip.active{background:#dbeafe;border-color:#2563eb;color:#1d4ed8;font-weight:700}
+    input[type=range]{width:100%;accent-color:var(--primary)}.range-row{display:flex;align-items:center;gap:10px}.size-value{min-width:44px;text-align:right;color:var(--muted);font-size:13px}.color-row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.swatch{width:31px;height:31px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #cbd5e1;cursor:pointer}.swatch.active{box-shadow:0 0 0 3px #2563eb}.custom-color{width:38px;height:34px;border:0;padding:0;background:none}.preview-wrap{background:#e2e8f0;border-radius:14px;min-height:180px;display:flex;align-items:center;justify-content:center;overflow:hidden}.preview-wrap canvas{display:block;max-width:100%;max-height:55vh;width:auto;height:auto}.empty{color:var(--muted);font-size:14px;padding:40px 20px;text-align:center}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{border:0;border-radius:12px;height:47px;font-weight:750;font-size:14px;cursor:pointer}.btn.primary{background:var(--primary);color:#fff}.btn.secondary{background:#e2e8f0;color:#1e293b}.btn:disabled{opacity:.45;cursor:not-allowed}.files{display:flex;gap:7px;overflow:auto;margin-top:11px}.thumb{width:60px;height:60px;object-fit:cover;border-radius:9px;border:2px solid transparent;flex:none}.thumb.active{border-color:var(--primary)}.status{font-size:13px;color:var(--muted);margin-top:10px}.footer{text-align:center;color:var(--muted);font-size:11px;margin-top:15px}
+    @media(min-width:600px){.app{padding-top:28px}.preview-wrap canvas{max-height:65vh}}
+  </style>
+</head>
+<body>
+<main class="app">
+  <div class="top"><div class="brand">Đóng dấu ảnh</div><div class="badge">Xử lý trên máy</div></div>
+  <section class="card">
+    <h2 class="section-title">1. Chọn ảnh sản phẩm</h2>
+    <label class="upload"><input id="picker" type="file" accept="image/*" multiple><strong>＋ Chọn một hoặc nhiều ảnh</strong><span>Ảnh không được tải lên mạng</span></label>
+    <div id="files" class="files"></div><div id="fileInfo" class="status">Chưa có ảnh nào được chọn</div>
+  </section>
+  <section class="card">
+    <h2 class="section-title">2. Nội dung dấu</h2>
+    <label for="customer">Tên khách hàng</label><input id="customer" class="text" placeholder="Ví dụ: Nguyễn Văn A" autocomplete="off">
+    <div class="grid"><div><label>Vị trí</label><div class="chips" id="positions"><button class="chip active" data-pos="left">Trái</button><button class="chip" data-pos="center">Giữa</button><button class="chip" data-pos="right">Phải</button><button class="chip" data-pos="top-right">Góc phải trên</button></div></div>
+    <div><label>Kích thước chữ</label><div class="range-row"><input id="fontSize" type="range" min="12" max="180" value="48"><span id="sizeValue" class="size-value">48 px</span></div><label style="margin-top:16px">Màu chữ</label><div class="color-row"><button class="swatch active" data-color="#ffffff" style="background:#fff"></button><button class="swatch" data-color="#111827" style="background:#111827"></button><button class="swatch" data-color="#ef4444" style="background:#ef4444"></button><button class="swatch" data-color="#facc15" style="background:#facc15"></button><button class="swatch" data-color="#2563eb" style="background:#2563eb"></button><input id="customColor" class="custom-color" type="color" value="#ffffff" title="Màu tùy chỉnh"></div></div></div>
+  </section>
+  <section class="card"><h2 class="section-title">3. Xem trước</h2><div id="preview" class="preview-wrap"><div class="empty">Chọn ảnh để xem trước dấu</div><canvas id="canvas" hidden></canvas></div><div id="dimensions" class="hint"></div></section>
+  <section class="card"><div class="actions"><button id="downloadOne" class="btn secondary" disabled>Tải ảnh này</button><button id="downloadAll" class="btn primary" disabled>Tải tất cả ảnh</button></div><div id="status" class="status"></div></section>
+  <div class="footer">Ảnh xuất giữ nguyên độ phân giải gốc · JPEG chất lượng tối đa · PNG không mất dữ liệu</div>
+</main>
+<script>
+  const $=s=>document.querySelector(s); const picker=$('#picker'), canvas=$('#canvas'), ctx=canvas.getContext('2d');
+  let files=[], current=0, position='left', color='#ffffff', image=null;
+  picker.onchange=e=>{files=[...e.target.files];current=0;renderThumbs();loadImage()};
+  function renderThumbs(){const box=$('#files');box.innerHTML='';files.forEach((f,i)=>{const u=URL.createObjectURL(f),im=document.createElement('img');im.src=u;im.className='thumb '+(i===current?'active':'');im.onclick=()=>{current=i;renderThumbs();loadImage()};box.append(im});$('#fileInfo').textContent=files.length?`${files.length} ảnh đã chọn`:'Chưa có ảnh nào được chọn';}
+  function loadImage(){if(!files.length)return;image=new Image();image.onload=()=>{canvas.hidden=false;$('#downloadOne').disabled=false;$('#downloadAll').disabled=false;$('#dimensions').textContent=`Kích thước gốc: ${image.naturalWidth} × ${image.naturalHeight} px`;draw()};image.src=URL.createObjectURL(files[current])}
+  function draw(){if(!image)return;canvas.width=image.naturalWidth;canvas.height=image.naturalHeight;ctx.drawImage(image,0,0);const text=$('#customer').value.trim();if(!text)return;const size=+$('#fontSize').value, pad=Math.max(16,size*.45);ctx.font=`700 ${size}px system-ui, sans-serif`;ctx.textBaseline='middle';ctx.lineJoin='round';const tw=ctx.measureText(text).width;let x=pad,y=canvas.height-pad;if(position==='center'){x=(canvas.width-tw)/2;y=canvas.height-pad}else if(position==='right'){x=canvas.width-tw-pad}else if(position==='top-right'){x=canvas.width-tw-pad;y=pad}ctx.strokeStyle=color==='#ffffff'?'rgba(0,0,0,.55)':'rgba(255,255,255,.55)';ctx.lineWidth=Math.max(2,size*.08);ctx.strokeText(text,x,y);ctx.fillStyle=color;ctx.fillText(text,x,y)}
+  $('#customer').oninput=draw;$('#fontSize').oninput=e=>{$('#sizeValue').textContent=e.target.value+' px';draw()};
+  $('#positions').onclick=e=>{const b=e.target.closest('[data-pos]');if(!b)return;position=b.dataset.pos;document.querySelectorAll('[data-pos]').forEach(x=>x.classList.toggle('active',x===b));draw()};
+  document.querySelectorAll('[data-color]').forEach(b=>b.onclick=()=>{color=b.dataset.color;document.querySelectorAll('[data-color]').forEach(x=>x.classList.toggle('active',x===b));draw()});$('#customColor').oninput=e=>{color=e.target.value;document.querySelectorAll('[data-color]').forEach(x=>x.classList.remove('active'));draw()};
+  function blobFor(file,done){const out=file.type==='image/png'?'image/png':(file.type==='image/webp'?'image/webp':'image/jpeg');canvas.toBlob(done,out,1)}
+  function saveBlob(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1200)}
+  $('#downloadOne').onclick=()=>{if(!files.length)return;draw();blobFor(files[current],b=>saveBlob(b,'dong-dau-'+files[current].name))};
+  $('#downloadAll').onclick=async()=>{if(!files.length)return;const old=current;for(let i=0;i<files.length;i++){current=i;renderThumbs();await new Promise(resolve=>{const im=new Image();im.onload=()=>{image=im;draw();blobFor(files[i],b=>{saveBlob(b,'dong-dau-'+files[i].name);resolve()})};im.src=URL.createObjectURL(files[i])});await new Promise(r=>setTimeout(r,180))}current=old;loadImage();$('#status').textContent=`Đã xuất ${files.length} ảnh. Nếu điện thoại hỏi quyền tải nhiều tệp, hãy chọn Cho phép.`};
+</script>
+</body></html>
