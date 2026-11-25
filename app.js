@@ -34,7 +34,7 @@ function loadImage() {
   const reader = new FileReader();
   reader.onload = () => {
     image = new Image();
-    image.onload = () => { canvas.hidden = false; $('#downloadOne').disabled = false; $('#downloadAll').disabled = false; $('#dimensions').textContent = `Kich thuoc goc: ${image.naturalWidth} x ${image.naturalHeight} px`; $('#status').textContent = `Da tai ${files.length} anh`; draw(); };
+    image.onload = () => { canvas.hidden = false; $('#preview .empty').style.display = 'none'; $('#downloadOne').disabled = false; $('#downloadAll').disabled = false; $('#dimensions').textContent = `Kich thuoc goc: ${image.naturalWidth} x ${image.naturalHeight} px`; $('#status').textContent = `Da tai ${files.length} anh`; draw(); };
     image.onerror = () => { $('#fileInfo').textContent = 'Trinh duyet khong doc duoc anh nay. Hay doi sang JPG hoac PNG.'; };
     image.src = reader.result;
   };
